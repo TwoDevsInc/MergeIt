@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.twodevs.MergeIt.models.entities.TaskList;
 
 @Repository
-public interface IListDAO extends JpaRepository<TaskList,Integer>{
+public interface ITaskListDAO extends JpaRepository<TaskList,Integer>{
 
 }
