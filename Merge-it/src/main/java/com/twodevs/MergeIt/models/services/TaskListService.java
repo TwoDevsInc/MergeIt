@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.twodevs.MergeIt.models.dao.IListDAO;
+import com.twodevs.MergeIt.models.dao.ITaskListDAO;
 import com.twodevs.MergeIt.models.entities.TaskList;
 
 
@@ -13,31 +13,31 @@ import com.twodevs.MergeIt.models.entities.TaskList;
 public class TaskListService implements ITaskListService{
 	
 	@Autowired
-	IListDAO listDAO;
+	ITaskListDAO taskListDAO;
 
 	@Override
 	public List<TaskList> findAll() {
-		return listDAO.findAll();
+		return taskListDAO.findAll();
 	}
 
 	@Override
 	public TaskList save(TaskList list) {
-		return listDAO.save(list);
+		return taskListDAO.save(list);
 	}
 
 	@Override
 	public TaskList findById(Integer id) {
-		return listDAO.findById(id).orElse(null);
+		return taskListDAO.findById(id).orElse(null);
 	}
 
 	@Override
 	public void delete(TaskList list) {
-		listDAO.delete(list);
+		taskListDAO.delete(list);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		listDAO.deleteById(id);
+		taskListDAO.deleteById(id);
 	}
 
 }
