@@ -5,9 +5,9 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.password">postgres</property>
+        <property name="hibernate.connection.password">gi75317531</property>
         <property name="hibernate.connection.url">jdbc:postgresql://185.110.78.176:5432/mergeit</property>
-        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.username">app</property>
         <property name="hibernate.default_schema">public</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     </session-factory>
