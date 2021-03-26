@@ -1,11 +1,12 @@
 package com.twodevs.MergeIt.models.entities;
-// Generated 26 mar. 2021 18:34:00 by Hibernate Tools 5.2.12.Final
+// Generated 26 mar. 2021 21:06:26 by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -13,34 +14,34 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "checklist_items")
-public class ChecklistItems implements java.io.Serializable {
+public class ChecklistItem implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private int idChecklist;
+	private Checklist checklist;
 	private String name;
 	private Boolean done;
 
-	public ChecklistItems() {
+	public ChecklistItem() {
 	}
 
-	public ChecklistItems(int id, int idChecklist) {
+	public ChecklistItem(int id, Checklist checklist) {
 		this.id = id;
-		this.idChecklist = idChecklist;
+		this.checklist = checklist;
 	}
 
-	public ChecklistItems(int id, int idChecklist, String name, Boolean done) {
+	public ChecklistItem(int id, Checklist checklist, String name, Boolean done) {
 		this.id = id;
-		this.idChecklist = idChecklist;
+		this.checklist = checklist;
 		this.name = name;
 		this.done = done;
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -50,13 +51,14 @@ public class ChecklistItems implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "id_checklist", nullable = false)
-	public int getIdChecklist() {
-		return this.idChecklist;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_checklist", nullable = false)
+	public Checklist getChecklists() {
+		return this.checklist;
 	}
 
-	public void setIdChecklist(int idChecklist) {
-		this.idChecklist = idChecklist;
+	public void setChecklists(Checklist checklist) {
+		this.checklist = checklist;
 	}
 
 	@Column(name = "name")

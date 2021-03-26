@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "users")
-public class Users implements java.io.Serializable {
+public class User implements java.io.Serializable {
 
 	/**
 	 * 
@@ -35,17 +35,17 @@ public class Users implements java.io.Serializable {
 	private String name;
 	private String surname;
 	private Date registerDate;
-	private Set<Teams> teamses = new HashSet<Teams>(0);
+	private Set<Team> teams = new HashSet<Team>(0);
 
-	public Users() {
+	public User() {
 	}
 
-	public Users(int id) {
+	public User(int id) {
 		this.id = id;
 	}
 
-	public Users(int id, String username, String password, String email, String name, String surname, Date registerDate,
-			Set<Teams> teamses) {
+	public User(int id, String username, String password, String email, String name, String surname, Date registerDate,
+			Set<Team> teams) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -53,7 +53,7 @@ public class Users implements java.io.Serializable {
 		this.name = name;
 		this.surname = surname;
 		this.registerDate = registerDate;
-		this.teamses = teamses;
+		this.teams = teams;
 	}
 
 	@Id
@@ -126,12 +126,12 @@ public class Users implements java.io.Serializable {
 	@JoinTable(name = "teams_users", joinColumns = {
 			@JoinColumn(name = "id_user", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "id_team", nullable = false, updatable = false) })
-	public Set<Teams> getTeamses() {
-		return this.teamses;
+	public Set<Team> getTeams() {
+		return this.teams;
 	}
 
-	public void setTeamses(Set<Teams> teamses) {
-		this.teamses = teamses;
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
 	}
 
 }

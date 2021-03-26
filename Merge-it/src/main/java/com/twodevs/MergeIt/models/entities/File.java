@@ -16,29 +16,29 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "files")
-public class Files implements java.io.Serializable {
+public class File implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private Tasks tasks;
+	private Task task;
 	private String name;
 	private String path;
 	private String type;
 
-	public Files() {
+	public File() {
 	}
 
-	public Files(int id, Tasks tasks) {
+	public File(int id, Task task) {
 		this.id = id;
-		this.tasks = tasks;
+		this.task = task;
 	}
 
-	public Files(int id, Tasks tasks, String name, String path, String type) {
+	public File(int id, Task task, String name, String path, String type) {
 		this.id = id;
-		this.tasks = tasks;
+		this.task = task;
 		this.name = name;
 		this.path = path;
 		this.type = type;
@@ -57,12 +57,12 @@ public class Files implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_task", nullable = false)
-	public Tasks getTasks() {
-		return this.tasks;
+	public Task getTasks() {
+		return this.task;
 	}
 
-	public void setTasks(Tasks tasks) {
-		this.tasks = tasks;
+	public void setTasks(Task task) {
+		this.task = task;
 	}
 
 	@Column(name = "name")
