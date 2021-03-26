@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "comments")
-public class Comments implements java.io.Serializable {
+public class Comment implements java.io.Serializable {
 
 	/**
 	 * 
@@ -29,17 +29,17 @@ public class Comments implements java.io.Serializable {
 	private Date createdAt;
 	private Boolean archived;
 
-	public Comments() {
+	public Comment() {
 	}
 
-	public Comments(int id, int idTask, int idUser, Date createdAt) {
+	public Comment(int id, int idTask, int idUser, Date createdAt) {
 		this.id = id;
 		this.idTask = idTask;
 		this.idUser = idUser;
 		this.createdAt = createdAt;
 	}
 
-	public Comments(int id, int idTask, int idUser, String text, Date createdAt, Boolean archived) {
+	public Comment(int id, int idTask, int idUser, String text, Date createdAt, Boolean archived) {
 		this.id = id;
 		this.idTask = idTask;
 		this.idUser = idUser;

@@ -22,42 +22,42 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tasks")
-public class Tasks implements java.io.Serializable {
+public class Task implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private Lists lists;
+	private TaskList taskList;
 	private String name;
 	private String description;
 	private Date createdAt;
 	private String color;
 	private String checkList;
 	private Boolean archivada;
-	private Set<Files> fileses = new HashSet<Files>(0);
+	private Set<File> files = new HashSet<File>(0);
 
-	public Tasks() {
+	public Task() {
 	}
 
-	public Tasks(int id, Lists lists, Date createdAt) {
+	public Task(int id, TaskList taskList, Date createdAt) {
 		this.id = id;
-		this.lists = lists;
+		this.taskList = taskList;
 		this.createdAt = createdAt;
 	}
 
-	public Tasks(int id, Lists lists, String name, String description, Date createdAt, String color, String checkList,
-			Boolean archivada, Set<Files> fileses) {
+	public Task(int id, TaskList taskList, String name, String description, Date createdAt, String color, String checkList,
+			Boolean archivada, Set<File> files) {
 		this.id = id;
-		this.lists = lists;
+		this.taskList = taskList;
 		this.name = name;
 		this.description = description;
 		this.createdAt = createdAt;
 		this.color = color;
 		this.checkList = checkList;
 		this.archivada = archivada;
-		this.fileses = fileses;
+		this.files = files;
 	}
 
 	@Id
@@ -73,12 +73,12 @@ public class Tasks implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_list", nullable = false)
-	public Lists getLists() {
-		return this.lists;
+	public TaskList getLists() {
+		return this.taskList;
 	}
 
-	public void setLists(Lists lists) {
-		this.lists = lists;
+	public void setLists(TaskList taskList) {
+		this.taskList = taskList;
 	}
 
 	@Column(name = "name")
@@ -137,12 +137,12 @@ public class Tasks implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tasks")
-	public Set<Files> getFileses() {
-		return this.fileses;
+	public Set<File> getFiles() {
+		return this.files;
 	}
 
-	public void setFileses(Set<Files> fileses) {
-		this.fileses = fileses;
+	public void setFiles(Set<File> files) {
+		this.files = files;
 	}
 
 }
