@@ -14,43 +14,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.twodevs.MergeIt.models.entities.Team;
-import com.twodevs.MergeIt.models.services.TeamService;
+import com.twodevs.MergeIt.models.entities.Task;
+import com.twodevs.MergeIt.models.services.TaskService;
 
 @RestController
-@RequestMapping("/team")
-public class TeamController {
+@RequestMapping("/task")
+public class TaskController {
+
 	
 	@Autowired
-	TeamService teamService;
+	TaskService taskService;
+	
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<Team>> getTeams(){
-		List<Team> team = teamService.findAll();
-		return new ResponseEntity<>(team,HttpStatus.OK);
+	public ResponseEntity<List<Task>> getTasks(){
+		List<Task> task = taskService.findAll();
+		return new ResponseEntity<>(task, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Team> getTeamById(@PathVariable Integer id){
-		Team team = teamService.findById(id);
-		return new ResponseEntity<>(team,HttpStatus.OK);
+	public ResponseEntity<Task> getTaskById(@PathVariable Integer id){
+		Task task = taskService.findById(id);
+		return new ResponseEntity<>(task, HttpStatus.OK);
 	}
-
+	
 	@PostMapping("/add")
-	public ResponseEntity<Team> addTeam(@RequestBody Team team){
-		Team newTeam = teamService.save(team);
-		return new ResponseEntity<>(newTeam,HttpStatus.CREATED);
+	public ResponseEntity<Task> addTask(@RequestBody Task task){
+		Task newTask = taskService.save(task);
+		return new ResponseEntity<>(newTask, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Team> updateTeam(@RequestBody Team team){
-		Team teamUpdated = teamService.save(team);
-		return new ResponseEntity<>(teamUpdated,HttpStatus.OK);
+	public ResponseEntity<Task> update(@RequestBody Task task){
+		Task updatedTask = taskService.save(task);
+		return new ResponseEntity<>(updatedTask, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deleteTeam(@PathVariable("id") Integer id){
-		teamService.deleteById(id);
+	public ResponseEntity<?> deleteTask(@PathVariable("id") Integer id){
+		taskService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

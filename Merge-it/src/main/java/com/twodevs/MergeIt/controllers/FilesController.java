@@ -14,43 +14,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.twodevs.MergeIt.models.entities.Team;
-import com.twodevs.MergeIt.models.services.TeamService;
+import com.twodevs.MergeIt.models.entities.File;
+import com.twodevs.MergeIt.models.services.FileService;
 
 @RestController
-@RequestMapping("/team")
-public class TeamController {
-	
+@RequestMapping("/files")
+public class FilesController {
+
 	@Autowired
-	TeamService teamService;
+	FileService fileService;
+	
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<Team>> getTeams(){
-		List<Team> team = teamService.findAll();
-		return new ResponseEntity<>(team,HttpStatus.OK);
+	public ResponseEntity<List<File>> getFiles(){
+		List<File> file = fileService.findAll();
+		return new ResponseEntity<>(file, HttpStatus.OK); 
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Team> getTeamById(@PathVariable Integer id){
-		Team team = teamService.findById(id);
-		return new ResponseEntity<>(team,HttpStatus.OK);
+	public ResponseEntity<File> getFileById(@PathVariable Integer id){
+		File file = fileService.findById(id);
+		return new ResponseEntity<>(file, HttpStatus.OK);
 	}
-
+	
 	@PostMapping("/add")
-	public ResponseEntity<Team> addTeam(@RequestBody Team team){
-		Team newTeam = teamService.save(team);
-		return new ResponseEntity<>(newTeam,HttpStatus.CREATED);
+	public ResponseEntity<File> addFile(@RequestBody File file){
+		File newFile = fileService.save(file);
+		return new ResponseEntity<>(newFile, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Team> updateTeam(@RequestBody Team team){
-		Team teamUpdated = teamService.save(team);
-		return new ResponseEntity<>(teamUpdated,HttpStatus.OK);
+	public ResponseEntity<File> updateFile(@RequestBody File file){
+		File updatedFile = fileService.save(file);
+		return new ResponseEntity<>(updatedFile, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deleteTeam(@PathVariable("id") Integer id){
-		teamService.deleteById(id);
+	public ResponseEntity<?> deleteFile(@PathVariable("id") Integer id){
+		fileService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
