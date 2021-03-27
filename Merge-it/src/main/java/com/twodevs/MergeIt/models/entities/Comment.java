@@ -1,12 +1,13 @@
 package com.twodevs.MergeIt.models.entities;
-// Generated 26 mar. 2021 18:34:00 by Hibernate Tools 5.2.12.Final
+// Generated 27 mar. 2021 19:54:19 by Hibernate Tools 5.2.12.Final
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,12 +19,8 @@ import javax.persistence.TemporalType;
 @Table(name = "comments")
 public class Comment implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int id;
-	private int idTask;
+	private Task task;
 	private int idUser;
 	private String text;
 	private Date createdAt;
@@ -32,16 +29,16 @@ public class Comment implements java.io.Serializable {
 	public Comment() {
 	}
 
-	public Comment(int id, int idTask, int idUser, Date createdAt) {
+	public Comment(int id, Task task, int idUser, Date createdAt) {
 		this.id = id;
-		this.idTask = idTask;
+		this.task = task;
 		this.idUser = idUser;
 		this.createdAt = createdAt;
 	}
 
-	public Comment(int id, int idTask, int idUser, String text, Date createdAt, Boolean archived) {
+	public Comment(int id, Task task, int idUser, String text, Date createdAt, Boolean archived) {
 		this.id = id;
-		this.idTask = idTask;
+		this.task = task;
 		this.idUser = idUser;
 		this.text = text;
 		this.createdAt = createdAt;
@@ -49,7 +46,7 @@ public class Comment implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -59,13 +56,14 @@ public class Comment implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "id_task", nullable = false)
-	public int getIdTask() {
-		return this.idTask;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_task", nullable = false)
+	public Task getTasks() {
+		return this.task;
 	}
 
-	public void setIdTask(int idTask) {
-		this.idTask = idTask;
+	public void setTasks(Task task) {
+		this.task = task;
 	}
 
 	@Column(name = "id_user", nullable = false)

@@ -17,29 +17,29 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "checklists")
-public class Checklist implements java.io.Serializable {
+public class CheckList implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private Task tasks;
+	private Task task;
 	private String name;
 	private Boolean done;
-	private Set<ChecklistItem> checkListItems = new HashSet<ChecklistItem>(0);
+	private Set<CheckListItem> checkListItems = new HashSet<CheckListItem>(0);
 
-	public Checklist() {
+	public CheckList() {
 	}
 
-	public Checklist(int id, Task tasks) {
+	public CheckList(int id, Task task) {
 		this.id = id;
-		this.tasks = tasks;
+		this.task = task;
 	}
 
-	public Checklist(int id, Task tasks, String name, Boolean done, Set<ChecklistItem> checkListItems) {
+	public CheckList(int id, Task task, String name, Boolean done, Set<CheckListItem> checkListItems) {
 		this.id = id;
-		this.tasks = tasks;
+		this.task = task;
 		this.name = name;
 		this.done = done;
 		this.checkListItems = checkListItems;
@@ -59,11 +59,11 @@ public class Checklist implements java.io.Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_task", nullable = false)
 	public Task getTasks() {
-		return this.tasks;
+		return this.task;
 	}
 
-	public void setTasks(Task tasks) {
-		this.tasks = tasks;
+	public void setTasks(Task task) {
+		this.task = task;
 	}
 
 	@Column(name = "name")
@@ -85,11 +85,11 @@ public class Checklist implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "checklists")
-	public Set<ChecklistItem> getCheckListItems() {
+	public Set<CheckListItem> getCheckListItems() {
 		return this.checkListItems;
 	}
 
-	public void setCheckListItems(Set<ChecklistItem> checkListItems) {
+	public void setCheckListItems(Set<CheckListItem> checkListItems) {
 		this.checkListItems = checkListItems;
 	}
 
