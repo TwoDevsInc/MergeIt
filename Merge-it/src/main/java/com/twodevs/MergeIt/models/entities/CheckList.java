@@ -58,11 +58,11 @@ public class CheckList implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_task", nullable = false)
-	public Task getTasks() {
+	public Task getTask() {
 		return this.task;
 	}
 
-	public void setTasks(Task task) {
+	public void setTask(Task task) {
 		this.task = task;
 	}
 
@@ -84,7 +84,7 @@ public class CheckList implements java.io.Serializable {
 		this.done = done;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "checklists")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "checklist")
 	public Set<CheckListItem> getCheckListItems() {
 		return this.checkListItems;
 	}

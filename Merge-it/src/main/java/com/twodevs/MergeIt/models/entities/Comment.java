@@ -19,9 +19,13 @@ import javax.persistence.TemporalType;
 @Table(name = "comments")
 public class Comment implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private Task task;
-	private int idUser;
+	private User user;
 	private String text;
 	private Date createdAt;
 	private Boolean archived;
@@ -29,17 +33,17 @@ public class Comment implements java.io.Serializable {
 	public Comment() {
 	}
 
-	public Comment(int id, Task task, int idUser, Date createdAt) {
+	public Comment(int id, Task task, User user, Date createdAt) {
 		this.id = id;
 		this.task = task;
-		this.idUser = idUser;
+		this.user = user;
 		this.createdAt = createdAt;
 	}
 
-	public Comment(int id, Task task, int idUser, String text, Date createdAt, Boolean archived) {
+	public Comment(int id, Task task, User user, String text, Date createdAt, Boolean archived) {
 		this.id = id;
 		this.task = task;
-		this.idUser = idUser;
+		this.user = user;
 		this.text = text;
 		this.createdAt = createdAt;
 		this.archived = archived;
@@ -58,21 +62,22 @@ public class Comment implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_task", nullable = false)
-	public Task getTasks() {
+	public Task getTask() {
 		return this.task;
 	}
 
-	public void setTasks(Task task) {
+	public void setTask(Task task) {
 		this.task = task;
 	}
-
-	@Column(name = "id_user", nullable = false)
-	public int getIdUser() {
-		return this.idUser;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_user", nullable = false)
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Column(name = "text")

@@ -34,9 +34,7 @@ public class Team implements java.io.Serializable {
 	private int id;
 	private String name;
 	private Date createdAt;
-	@JsonIgnoreProperties({"teams"})
 	private Set<User> users = new HashSet<User>(0);
-	@JsonIgnoreProperties({"taskLists"})
 	private Set<Project> projects = new HashSet<Project>(0);
 
 	public Team() {
