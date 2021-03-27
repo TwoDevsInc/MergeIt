@@ -14,43 +14,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.twodevs.MergeIt.models.entities.Team;
-import com.twodevs.MergeIt.models.services.TeamService;
+
+import com.twodevs.MergeIt.models.entities.User;
+import com.twodevs.MergeIt.models.services.UserService;
+
+
 
 @RestController
-@RequestMapping("/team")
-public class TeamController {
-	
+@RequestMapping("/user")
+public class UserController {
 	@Autowired
-	TeamService teamService;
+	UserService userService;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<Team>> getTeams(){
-		List<Team> team = teamService.findAll();
-		return new ResponseEntity<>(team,HttpStatus.OK);
+	public ResponseEntity<List<User>> getUsers(){
+		List<User> user = userService.findAll();
+		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Team> getTeamById(@PathVariable Integer id){
-		Team team = teamService.findById(id);
-		return new ResponseEntity<>(team,HttpStatus.OK);
+	public ResponseEntity<User> getUserById(@PathVariable Integer id){
+		User user = userService.findById(id);
+		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<Team> addTeam(@RequestBody Team team){
-		Team newTeam = teamService.save(team);
-		return new ResponseEntity<>(newTeam,HttpStatus.CREATED);
+	public ResponseEntity<User> addUser(@RequestBody User user){
+		User newUser = userService.save(user);
+		return new ResponseEntity<>(newUser,HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Team> updateTeam(@RequestBody Team team){
-		Team teamUpdated = teamService.save(team);
-		return new ResponseEntity<>(teamUpdated,HttpStatus.OK);
+	public ResponseEntity<User> updateUser(@RequestBody User user){
+		User userUpdated = userService.save(user);
+		return new ResponseEntity<>(userUpdated,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deleteTeam(@PathVariable("id") Integer id){
-		teamService.deleteById(id);
+	public ResponseEntity<?> updateUser(@PathVariable("id") Integer id){
+		userService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
