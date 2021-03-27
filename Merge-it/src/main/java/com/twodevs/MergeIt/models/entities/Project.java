@@ -91,7 +91,7 @@ public class Project implements java.io.Serializable {
 		this.createdAt = createdAt;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "projects")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	public Set<TaskList> getTaskLists() {
 		return this.taskLists;
 	}

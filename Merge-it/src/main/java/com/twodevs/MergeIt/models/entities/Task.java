@@ -1,9 +1,10 @@
 package com.twodevs.MergeIt.models.entities;
-// Generated 27 mar. 2021 19:54:19 by Hibernate Tools 5.2.12.Final
+// Generated 27 mar. 2021 20:36:03 by Hibernate Tools 5.2.12.Final
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,9 +32,11 @@ public class Task implements java.io.Serializable {
 	private String name;
 	private String description;
 	private Date createdAt;
-	private String checkList;
+	private String color;
 	private Boolean archivada;
+	private Set<File> files = new HashSet<File>(0);
 	private Set<Comment> comments = new HashSet<Comment>(0);
+	private Set<CheckList> checkLists = new HashSet<CheckList>(0);
 
 	public Task() {
 	}
@@ -44,16 +47,15 @@ public class Task implements java.io.Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public Task(int id, TaskList taskList, String name, String description, Date createdAt, String checkList,
-			Boolean archivada, Set<Comment> comments) {
+	public Task(int id, TaskList taskList, String name, String description, Date createdAt, String color,
+			Boolean archivada) {
 		this.id = id;
 		this.taskList = taskList;
 		this.name = name;
 		this.description = description;
 		this.createdAt = createdAt;
-		this.checkList = checkList;
+		this.color = color;
 		this.archivada = archivada;
-		this.comments = comments;
 	}
 
 	@Id
@@ -69,11 +71,11 @@ public class Task implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_taskList", nullable = false)
-	public TaskList getTaskList() {
+	public TaskList getTaskLists() {
 		return this.taskList;
 	}
 
-	public void setTaskList(TaskList taskList) {
+	public void setTaskLists(TaskList taskList) {
 		this.taskList = taskList;
 	}
 
@@ -105,13 +107,13 @@ public class Task implements java.io.Serializable {
 		this.createdAt = createdAt;
 	}
 
-	@Column(name = "CheckList")
-	public String getCheckList() {
-		return this.checkList;
+	@Column(name = "color", length = 6)
+	public String getColor() {
+		return this.color;
 	}
 
-	public void setCheckList(String checkList) {
-		this.checkList = checkList;
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	@Column(name = "archivada")
@@ -122,14 +124,32 @@ public class Task implements java.io.Serializable {
 	public void setArchivada(Boolean archivada) {
 		this.archivada = archivada;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+	public Set<File> getFiles() {
+		return this.files;
+	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tasks")
+	public void setFiles(Set<File> files) {
+		this.files = files;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
 	public Set<Comment> getComments() {
 		return this.comments;
 	}
 
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+	public Set<CheckList> getCheckLists() {
+		return this.checkLists;
+	}
+
+	public void setCheckLists(Set<CheckList> checkLists) {
+		this.checkLists = checkLists;
 	}
 
 }

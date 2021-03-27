@@ -2,14 +2,14 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
+  <table-filter match-schema="public" match-name="checklist_items"/>
+  <table-filter match-schema="public" match-name="checklists"/>
   <table-filter match-schema="public" match-name="comments"/>
+  <table-filter match-schema="public" match-name="files"/>
+  <table-filter match-schema="public" match-name="projects"/>
+  <table-filter match-schema="public" match-name="task_lists"/>
+  <table-filter match-schema="public" match-name="tasks"/>
   <table-filter match-schema="public" match-name="teams"/>
   <table-filter match-schema="public" match-name="teams_users"/>
-  <table-filter match-schema="public" match-name="files"/>
-  <table-filter match-schema="public" match-name="lists"/>
-  <table-filter match-schema="public" match-name="projects"/>
-  <table-filter match-schema="public" match-name="tasks"/>
   <table-filter match-schema="public" match-name="users"/>
-  <table-filter match-schema="public" match-name="checklists"/>
-  <table-filter match-schema="public" match-name="checklist_items"/>
 </hibernate-reverse-engineering>

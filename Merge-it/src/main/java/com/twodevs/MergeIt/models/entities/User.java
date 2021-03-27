@@ -37,7 +37,6 @@ public class User implements java.io.Serializable {
 	private String name;
 	private String surname;
 	private Date registerDate;
-	@JsonIgnoreProperties({"users","projects"})
 	private Set<Team> teams = new HashSet<Team>(0);
 
 	public User() {
