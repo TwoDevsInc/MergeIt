@@ -1,5 +1,5 @@
 package com.twodevs.MergeIt.models.entities;
-// Generated 26 mar. 2021 18:34:00 by Hibernate Tools 5.2.12.Final
+// Generated 27 mar. 2021 19:54:19 by Hibernate Tools 5.2.12.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -7,8 +7,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,10 +31,9 @@ public class Task implements java.io.Serializable {
 	private String name;
 	private String description;
 	private Date createdAt;
-	private String color;
 	private String checkList;
 	private Boolean archivada;
-	private Set<File> files = new HashSet<File>(0);
+	private Set<Comment> comments = new HashSet<Comment>(0);
 
 	public Task() {
 	}
@@ -47,21 +44,20 @@ public class Task implements java.io.Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public Task(int id, TaskList taskList, String name, String description, Date createdAt, String color, String checkList,
-			Boolean archivada, Set<File> files) {
+	public Task(int id, TaskList taskList, String name, String description, Date createdAt, String checkList,
+			Boolean archivada, Set<Comment> comments) {
 		this.id = id;
 		this.taskList = taskList;
 		this.name = name;
 		this.description = description;
 		this.createdAt = createdAt;
-		this.color = color;
 		this.checkList = checkList;
 		this.archivada = archivada;
-		this.files = files;
+		this.comments = comments;
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -72,12 +68,12 @@ public class Task implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_list", nullable = false)
-	public TaskList getLists() {
+	@JoinColumn(name = "id_taskList", nullable = false)
+	public TaskList getTaskList() {
 		return this.taskList;
 	}
 
-	public void setLists(TaskList taskList) {
+	public void setTaskList(TaskList taskList) {
 		this.taskList = taskList;
 	}
 
@@ -109,15 +105,6 @@ public class Task implements java.io.Serializable {
 		this.createdAt = createdAt;
 	}
 
-	@Column(name = "color", length = 6)
-	public String getColor() {
-		return this.color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
 	@Column(name = "CheckList")
 	public String getCheckList() {
 		return this.checkList;
@@ -137,12 +124,12 @@ public class Task implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tasks")
-	public Set<File> getFiles() {
-		return this.files;
+	public Set<Comment> getComments() {
+		return this.comments;
 	}
 
-	public void setFiles(Set<File> files) {
-		this.files = files;
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
 	}
 
 }

@@ -3,9 +3,9 @@ package com.twodevs.MergeIt.models.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.twodevs.MergeIt.models.entities.Checklist;
+import com.twodevs.MergeIt.models.entities.CheckList;
 
 @Repository
-public interface IChecklistDAO extends JpaRepository<Checklist, Integer>{
+public interface ICheckListDAO extends JpaRepository<CheckList, Integer>{
 
 }

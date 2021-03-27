@@ -14,28 +14,28 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "checklist_items")
-public class ChecklistItem implements java.io.Serializable {
+public class CheckListItem implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private Checklist checklist;
+	private CheckList checkList;
 	private String name;
 	private Boolean done;
 
-	public ChecklistItem() {
+	public CheckListItem() {
 	}
 
-	public ChecklistItem(int id, Checklist checklist) {
+	public CheckListItem(int id, CheckList checkList) {
 		this.id = id;
-		this.checklist = checklist;
+		this.checkList = checkList;
 	}
 
-	public ChecklistItem(int id, Checklist checklist, String name, Boolean done) {
+	public CheckListItem(int id, CheckList checkList, String name, Boolean done) {
 		this.id = id;
-		this.checklist = checklist;
+		this.checkList = checkList;
 		this.name = name;
 		this.done = done;
 	}
@@ -53,12 +53,12 @@ public class ChecklistItem implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_checklist", nullable = false)
-	public Checklist getChecklists() {
-		return this.checklist;
+	public CheckList getChecklists() {
+		return this.checkList;
 	}
 
-	public void setChecklists(Checklist checklist) {
-		this.checklist = checklist;
+	public void setChecklists(CheckList checkList) {
+		this.checkList = checkList;
 	}
 
 	@Column(name = "name")

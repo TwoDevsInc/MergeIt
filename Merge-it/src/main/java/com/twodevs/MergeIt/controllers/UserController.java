@@ -23,6 +23,7 @@ import com.twodevs.MergeIt.models.services.UserService;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+	
 	@Autowired
 	UserService userService;
 	

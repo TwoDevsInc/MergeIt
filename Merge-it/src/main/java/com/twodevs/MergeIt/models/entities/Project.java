@@ -32,7 +32,7 @@ public class Project implements java.io.Serializable {
 	private Team team;
 	private String name;
 	private Date createdAt;
-	private Set<TaskList> list = new HashSet<TaskList>(0);
+	private Set<TaskList> taskLists = new HashSet<TaskList>(0);
 
 	public Project() {
 	}
@@ -43,12 +43,12 @@ public class Project implements java.io.Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public Project(int id, Team team, String name, Date createdAt, Set<TaskList> list) {
+	public Project(int id, Team team, String name, Date createdAt, Set<TaskList> taskLists) {
 		this.id = id;
 		this.team = team;
 		this.name = name;
 		this.createdAt = createdAt;
-		this.list = list;
+		this.taskLists = taskLists;
 	}
 
 	@Id
@@ -92,12 +92,12 @@ public class Project implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "projects")
-	public Set<TaskList> getList() {
-		return this.list;
+	public Set<TaskList> getTaskLists() {
+		return this.taskLists;
 	}
 
-	public void setList(Set<TaskList> list) {
-		this.list = list;
+	public void setTaskLists(Set<TaskList> taskLists) {
+		this.taskLists = taskLists;
 	}
 
 }
