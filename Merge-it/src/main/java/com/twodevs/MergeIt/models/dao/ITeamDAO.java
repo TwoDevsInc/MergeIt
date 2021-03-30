@@ -9,5 +9,4 @@ import com.twodevs.MergeIt.models.entities.Team;
 
 @Repository
 public interface ITeamDAO extends JpaRepository<Team,Integer>{
-	List<Team> findByUserId(Integer id);
 }
