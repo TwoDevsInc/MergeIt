@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.Task;
+import com.twodevs.MergeIt.models.entities.TaskList;
 import com.twodevs.MergeIt.models.services.TaskService;
 
 @RestController
@@ -30,6 +31,12 @@ public class TaskController {
 	public ResponseEntity<List<Task>> getTasks(){
 		List<Task> task = taskService.findAll();
 		return new ResponseEntity<>(task, HttpStatus.OK);
+	}
+	
+	@GetMapping("/taskByTaskList/{id_task_list}")
+	public ResponseEntity<List<Task>> getTaskByTaskListId(@PathVariable Integer id_task_list){
+		List<Task> tasks = taskService.findByTaskListId(id_task_list);
+		return new ResponseEntity<>(tasks,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")

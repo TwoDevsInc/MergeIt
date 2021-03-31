@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.CheckList;
+import com.twodevs.MergeIt.models.entities.TaskList;
 import com.twodevs.MergeIt.models.services.CheckListService;
 
 @RestController
@@ -28,6 +29,12 @@ public class CheckListController {
 	public ResponseEntity<List<CheckList>> getCheckLists(){
 		List<CheckList> checkList = checkListService.findAll();
 		return new ResponseEntity<>(checkList,HttpStatus.OK);
+	}
+	
+	@GetMapping("/CheckListByTask/{id_task}")
+	public ResponseEntity<List<CheckList>> getCheckListByTaskId(@PathVariable Integer id_task){
+		List<CheckList> checkLists = checkListService.findByTaskId(id_task);
+		return new ResponseEntity<>(checkLists,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
