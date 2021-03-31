@@ -31,7 +31,7 @@ public class CheckListController {
 		return new ResponseEntity<>(checkList,HttpStatus.OK);
 	}
 	
-	@GetMapping("/CheckListsByTask/{id_task}")
+	@GetMapping("/checkListsByTask/{id_task}")
 	public ResponseEntity<List<CheckList>> getCheckListsByTaskId(@PathVariable Integer id_task){
 		List<CheckList> checkLists = checkListService.findByTaskId(id_task);
 		return new ResponseEntity<>(checkLists,HttpStatus.OK);
