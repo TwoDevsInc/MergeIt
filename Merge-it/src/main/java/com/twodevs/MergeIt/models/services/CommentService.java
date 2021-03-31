@@ -18,6 +18,11 @@ public class CommentService implements ICommentService {
 	public List<Comment> findAll() {
 		return commentDAO.findAll();
 	}
+	
+	@Override
+	public List<Comment> findByTaskId(Integer id_task) {
+		return commentDAO.findByTaskId(id_task);
+	}
 
 	@Override
 	public Comment save(Comment comment) {
@@ -38,5 +43,7 @@ public class CommentService implements ICommentService {
 	public void deleteById(Integer id) {
 		commentDAO.deleteById(id);
 	}
+
+	
 
 }

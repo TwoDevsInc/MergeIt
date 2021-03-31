@@ -15,6 +15,11 @@ public class FileService implements IFileService {
 	IFileDAO fileDAO;
 	
 	@Override
+	public List<File> findByTaskId(Integer id_task) {
+		return fileDAO.findByTaskId(id_task);
+	}
+	
+	@Override
 	public List<File> findAll() {
 		return fileDAO.findAll();
 	}
@@ -38,6 +43,8 @@ public class FileService implements IFileService {
 	public void deleteById(Integer id) {
 		fileDAO.deleteById(id);
 	}
+
+	
 
 	
 }

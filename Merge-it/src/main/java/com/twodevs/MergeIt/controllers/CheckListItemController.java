@@ -35,6 +35,12 @@ public class CheckListItemController {
 		CheckListItem checkListItem = checkListItemService.findById(id);
 		return new ResponseEntity<>(checkListItem,HttpStatus.OK);
 	}
+	
+	@GetMapping("/checkListItemsByCheckList/{id_check_list}")
+	public ResponseEntity<List<CheckListItem>> getCheckListItemByCheckListId(@PathVariable Integer id_check_list){
+		List<CheckListItem> checkListItems = checkListItemService.findByCheckListId(id_check_list);
+		return new ResponseEntity<>(checkListItems,HttpStatus.OK);
+	}
 
 	@PostMapping("/add")
 	public ResponseEntity<CheckListItem> addCheckListItem(@RequestBody CheckListItem checkListItem){
