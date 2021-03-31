@@ -1,6 +1,7 @@
 package com.twodevs.MergeIt.models.entities;
 // Generated 26 mar. 2021 18:34:00 by Hibernate Tools 5.2.12.Final
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -36,7 +38,8 @@ public class User implements java.io.Serializable {
 	private String email;
 	private String name;
 	private String surname;
-	private Date registerDate;
+	private LocalDate registerDate;
+	@JsonIgnoreProperties({"users","projects"})
 	private Set<Team> teams = new HashSet<Team>(0);
 
 	public User() {
@@ -46,7 +49,7 @@ public class User implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public User(int id, String username, String password, String email, String name, String surname, Date registerDate,
+	public User(int id, String username, String password, String email, String name, String surname, LocalDate registerDate,
 			Set<Team> teams) {
 		this.id = id;
 		this.username = username;
@@ -114,13 +117,12 @@ public class User implements java.io.Serializable {
 		this.surname = surname;
 	}
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "register_date", length = 13)
-	public Date getRegisterDate() {
+	public LocalDate getRegisterDate() {
 		return this.registerDate;
 	}
 
-	public void setRegisterDate(Date registerDate) {
+	public void setRegisterDate(LocalDate registerDate) {
 		this.registerDate = registerDate;
 	}
 

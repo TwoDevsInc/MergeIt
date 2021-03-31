@@ -36,6 +36,12 @@ public class ProjectController {
 		Project project = projectService.findById(id);
 		return new ResponseEntity<>(project,HttpStatus.OK);
 	}
+	
+	@GetMapping("/projectsByTeam/{id_team}")
+	public ResponseEntity<List<Project>> getProjectByTeamId(@PathVariable Integer id_team){
+		List<Project> projects = projectService.findByTeamId(id_team);
+		return new ResponseEntity<>(projects,HttpStatus.OK);
+	}
 
 	@PostMapping("/add")
 	public ResponseEntity<Project> addProject(@RequestBody Project project){
