@@ -5,7 +5,10 @@ import java.util.List;
 import com.twodevs.MergeIt.models.entities.CheckListItem;
 
 public interface ICheckListItemService {
+	
 	public List<CheckListItem> findAll();
+	
+	public List<CheckListItem> findByCheckListId(Integer id_checklist);
 
     public CheckListItem save(CheckListItem checkListItem);
 

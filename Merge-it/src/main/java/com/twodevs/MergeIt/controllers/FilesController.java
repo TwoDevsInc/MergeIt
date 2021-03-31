@@ -37,6 +37,12 @@ public class FilesController {
 		return new ResponseEntity<>(file, HttpStatus.OK);
 	}
 	
+	@GetMapping("/filesByTask/{id_task}")
+	public ResponseEntity<List<File>> getFilesByTaskId(@PathVariable Integer id_task){
+		List<File> files = fileService.findByTaskId(id_task);
+		return new ResponseEntity<>(files, HttpStatus.OK);
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<File> addFile(@RequestBody File file){
 		File newFile = fileService.save(file);

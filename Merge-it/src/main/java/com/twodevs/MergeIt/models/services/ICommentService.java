@@ -7,7 +7,10 @@ import com.twodevs.MergeIt.models.entities.Comment;
 
 
 public interface ICommentService {
+	
 	public List<Comment> findAll();
+	
+	public List<Comment> findByTaskId(Integer id_task);
 
     public Comment save(Comment comment);
 

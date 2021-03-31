@@ -36,6 +36,12 @@ public class CommentController {
 		return new ResponseEntity<>(comment, HttpStatus.OK);
 	}
 	
+	@GetMapping("/commentsByTask/{id_task}")
+	public ResponseEntity<List<Comment>> getCommentByTaskId(@PathVariable Integer id_task){
+		List<Comment> comments = commentService.findByTaskId(id_task);
+		return new ResponseEntity<>(comments, HttpStatus.OK);
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<Comment> addComment(@RequestBody Comment comment){
 		Comment newComment = commentService.save(comment);
