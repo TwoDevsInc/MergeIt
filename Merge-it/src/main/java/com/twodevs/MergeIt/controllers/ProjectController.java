@@ -38,7 +38,7 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/projectsByTeam/{id_team}")
-	public ResponseEntity<List<Project>> getProjectByTeamId(@PathVariable Integer id_team){
+	public ResponseEntity<List<Project>> getProjectsByTeamId(@PathVariable Integer id_team){
 		List<Project> projects = projectService.findByTeamId(id_team);
 		return new ResponseEntity<>(projects,HttpStatus.OK);
 	}

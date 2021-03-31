@@ -21,7 +21,7 @@ public class CheckListItemService implements ICheckListItemService {
 	
 	@Override
 	public List<CheckListItem> findByCheckListId(Integer id_checklist) {
-		return checkListItemDAO.findByCheckListId(id_checklist);
+		return checkListItemDAO.findByChecklistId(id_checklist);
 	}
 
 	@Override

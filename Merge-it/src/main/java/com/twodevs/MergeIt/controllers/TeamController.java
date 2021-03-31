@@ -35,12 +35,6 @@ public class TeamController {
 		Team team = teamService.findById(id);
 		return new ResponseEntity<>(team,HttpStatus.OK);
 	}
-	
-//	@GetMapping("/teamsByUser/{id_user}")
-//	public ResponseEntity<List<Team>> getTeamByUserId(@PathVariable Integer id_user){
-//		List<Team> teamsByUser = teamService.findByUserId(id_user);
-//		return new ResponseEntity<>(teamsByUser,HttpStatus.OK);
-//	}
 
 	@PostMapping("/add")
 	public ResponseEntity<Team> addTeam(@RequestBody Team team){

@@ -26,21 +26,21 @@ public class CheckListItem implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id;
 	@JsonIgnoreProperties({"task","checkListItems"})
-	private CheckList checkList;
+	private CheckList checklist;
 	private String name;
 	private Boolean done;
 
 	public CheckListItem() {
 	}
 
-	public CheckListItem(int id, CheckList checkList) {
+	public CheckListItem(int id, CheckList checklist) {
 		this.id = id;
-		this.checkList = checkList;
+		this.checklist = checklist;
 	}
 
-	public CheckListItem(int id, CheckList checkList, String name, Boolean done) {
+	public CheckListItem(int id, CheckList checklist, String name, Boolean done) {
 		this.id = id;
-		this.checkList = checkList;
+		this.checklist = checklist;
 		this.name = name;
 		this.done = done;
 	}
@@ -59,11 +59,11 @@ public class CheckListItem implements java.io.Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_check_list", nullable = false)
 	public CheckList getChecklist() {
-		return this.checkList;
+		return this.checklist;
 	}
 
-	public void setChecklist(CheckList checkList) {
-		this.checkList = checkList;
+	public void setChecklist(CheckList checklist) {
+		this.checklist = checklist;
 	}
 
 	@Column(name = "name")
