@@ -25,7 +25,7 @@ public class CheckListItem implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	@JsonIgnoreProperties({"task","checkListItems"})
+	@JsonIgnoreProperties({"task","checkListItems","hibernateLazyInitializer", "handler"})
 	private CheckList checklist;
 	private String name;
 	private Boolean done;
