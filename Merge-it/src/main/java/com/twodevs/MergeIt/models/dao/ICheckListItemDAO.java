@@ -9,5 +9,5 @@ import com.twodevs.MergeIt.models.entities.CheckListItem;
 
 @Repository
 public interface ICheckListItemDAO extends JpaRepository<CheckListItem, Integer>{
-	List<CheckListItem> findByCheckListId(Integer id_checklist);
+	List<CheckListItem> findByChecklistId(Integer id_checklist);
 }

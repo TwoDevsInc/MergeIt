@@ -32,8 +32,8 @@ public class TaskListController {
 		return new ResponseEntity<>(taskList,HttpStatus.OK);
 	}
 	
-	@GetMapping("/taskListByProject/{id_project}")
-	public ResponseEntity<List<TaskList>> getTaskListByProjectId(@PathVariable Integer id_project){
+	@GetMapping("/taskListsByProject/{id_project}")
+	public ResponseEntity<List<TaskList>> getTaskListsByProjectId(@PathVariable Integer id_project){
 		List<TaskList> taskLists = taskListService.findByProjectId(id_project);
 		return new ResponseEntity<>(taskLists,HttpStatus.OK);
 	}

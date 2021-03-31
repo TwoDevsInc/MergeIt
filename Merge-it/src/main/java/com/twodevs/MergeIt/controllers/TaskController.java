@@ -33,8 +33,8 @@ public class TaskController {
 		return new ResponseEntity<>(task, HttpStatus.OK);
 	}
 	
-	@GetMapping("/taskByTaskList/{id_task_list}")
-	public ResponseEntity<List<Task>> getTaskByTaskListId(@PathVariable Integer id_task_list){
+	@GetMapping("/taskByTasksList/{id_task_list}")
+	public ResponseEntity<List<Task>> getTaskByTasksListId(@PathVariable Integer id_task_list){
 		List<Task> tasks = taskService.findByTaskListId(id_task_list);
 		return new ResponseEntity<>(tasks,HttpStatus.OK);
 	}
