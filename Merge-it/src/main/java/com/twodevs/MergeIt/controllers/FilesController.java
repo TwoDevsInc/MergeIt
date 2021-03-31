@@ -18,7 +18,7 @@ import com.twodevs.MergeIt.models.entities.File;
 import com.twodevs.MergeIt.models.services.FileService;
 
 @RestController
-@RequestMapping("/files")
+@RequestMapping("/file")
 public class FilesController {
 
 	@Autowired

@@ -29,8 +29,9 @@ public class Comment implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	@JsonIgnoreProperties({"taskList","files","comments","checkLists"})
+	@JsonIgnoreProperties({"taskList","files","comments","checkLists","hibernateLazyInitializer", "handler"})
 	private Task task;
+	@JsonIgnoreProperties({"teams","hibernateLazyInitializer", "handler"})
 	private User user;
 	private String text;
 	private LocalDate createdAt;
