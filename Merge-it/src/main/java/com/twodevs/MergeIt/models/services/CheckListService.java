@@ -18,6 +18,11 @@ public class CheckListService implements ICheckListService {
 	public List<CheckList> findAll() {
 		return checkListDAO.findAll();
 	}
+	
+	@Override
+	public List<CheckList> findByTaskId(Integer id_task) {
+		return checkListDAO.findByTaskId(id_task);
+	}
 
 	@Override
 	public CheckList save(CheckList checkList) {
@@ -38,5 +43,7 @@ public class CheckListService implements ICheckListService {
 	public void deleteById(Integer id) {
 		checkListDAO.deleteById(id);
 	}
+
+	
 
 }

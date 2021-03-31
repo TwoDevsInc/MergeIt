@@ -19,6 +19,11 @@ public class TaskService implements ITaskService{
 	public List<Task> findAll() {
 		return taskDAO.findAll();
 	}
+	
+	@Override
+	public List<Task> findByTaskListId(Integer id_task_list) {
+		return taskDAO.findByTaskListId(id_task_list);
+	}
 
 	@Override
 	public Task save(Task task) {
@@ -39,5 +44,7 @@ public class TaskService implements ITaskService{
 	public void deleteById(Integer id) {
 		taskDAO.deleteById(id);
 	}
+
+	
 
 }
