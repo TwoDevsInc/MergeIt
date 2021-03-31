@@ -1,10 +1,13 @@
 package com.twodevs.MergeIt.models.entities;
 // Generated 27 mar. 2021 19:54:19 by Hibernate Tools 5.2.12.Final
 
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,20 +30,20 @@ public class Comment implements java.io.Serializable {
 	private Task task;
 	private User user;
 	private String text;
-	private Date createdAt;
+	private LocalDate createdAt;
 	private Boolean archived;
 
 	public Comment() {
 	}
 
-	public Comment(int id, Task task, User user, Date createdAt) {
+	public Comment(int id, Task task, User user, LocalDate createdAt) {
 		this.id = id;
 		this.task = task;
 		this.user = user;
 		this.createdAt = createdAt;
 	}
 
-	public Comment(int id, Task task, User user, String text, Date createdAt, Boolean archived) {
+	public Comment(int id, Task task, User user, String text, LocalDate createdAt, Boolean archived) {
 		this.id = id;
 		this.task = task;
 		this.user = user;
@@ -50,7 +53,7 @@ public class Comment implements java.io.Serializable {
 	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -89,13 +92,12 @@ public class Comment implements java.io.Serializable {
 		this.text = text;
 	}
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "created_at", nullable = false, length = 13)
-	public Date getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return this.createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 

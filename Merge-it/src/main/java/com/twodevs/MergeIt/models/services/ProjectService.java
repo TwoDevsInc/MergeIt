@@ -18,6 +18,11 @@ public class ProjectService implements IProjectService{
 	public List<Project> findAll() {
 		return projectDAO.findAll();
 	}
+	
+	@Override
+	public List<Project> findByTeamId(Integer id_team) {
+		return projectDAO.findByTeamId(id_team);
+	}
 
 	@Override
 	public Project save(Project project) {
@@ -38,5 +43,7 @@ public class ProjectService implements IProjectService{
 	public void deleteById(Integer id) {
 		projectDAO.deleteById(id);
 	}
+
+	
 
 }

@@ -1,9 +1,10 @@
 package com.twodevs.MergeIt.models.entities;
 // Generated 26 mar. 2021 18:34:00 by Hibernate Tools 5.2.12.Final
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,9 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -33,19 +33,21 @@ public class Team implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
-	private Date createdAt;
+	private LocalDate createdAt;
+	@JsonIgnore
 	private Set<User> users = new HashSet<User>(0);
+	@JsonIgnoreProperties({"taskLists","team"})
 	private Set<Project> projects = new HashSet<Project>(0);
 
 	public Team() {
 	}
 
-	public Team(int id, Date createdAt) {
+	public Team(int id, LocalDate createdAt) {
 		this.id = id;
 		this.createdAt = createdAt;
 	}
 
-	public Team(int id, String name, Date createdAt, Set<User> users, Set<Project> projects) {
+	public Team(int id, String name, LocalDate createdAt, Set<User> users, Set<Project> projects) {
 		this.id = id;
 		this.name = name;
 		this.createdAt = createdAt;
@@ -73,13 +75,12 @@ public class Team implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "created_at", nullable = false, length = 13)
-	public Date getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return this.createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
@@ -95,7 +96,7 @@ public class Team implements java.io.Serializable {
 		this.users = users;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teams")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "team") 
 	public Set<Project> getProjects() {
 		return this.projects;
 	}
