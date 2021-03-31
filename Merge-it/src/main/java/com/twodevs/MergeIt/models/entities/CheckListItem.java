@@ -54,7 +54,7 @@ public class CheckListItem implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_checklist", nullable = false)
+	@JoinColumn(name = "id_check_list", nullable = false)
 	public CheckList getChecklist() {
 		return this.checkList;
 	}
