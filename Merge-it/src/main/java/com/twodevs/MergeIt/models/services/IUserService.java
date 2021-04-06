@@ -11,6 +11,8 @@ public interface IUserService {
     public User save(User user);
 
     public User findById(Integer id);
+    
+    public User findByUsername(String username);
 
     public void delete(User user);
 
