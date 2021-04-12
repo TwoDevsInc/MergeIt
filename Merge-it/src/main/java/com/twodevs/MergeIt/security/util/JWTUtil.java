@@ -28,11 +28,11 @@ public class JWTUtil {
 		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
 	}
 	
-	private String extractUsername(String token) {
+	public String extractUsername(String token) {
 		return extractClaim(token, Claims::getSubject);
 	}
 	
-	private Date extractExpiration(String token) {
+	public Date extractExpiration(String token) {
 		return extractClaim(token,Claims::getExpiration);
 	}
 
