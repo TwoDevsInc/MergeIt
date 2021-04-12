@@ -1,6 +1,7 @@
 package com.twodevs.MergeIt.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.File;
+import com.twodevs.MergeIt.models.entities.dto.FileDTO;
 import com.twodevs.MergeIt.models.services.FileService;
 
 @RestController
@@ -26,32 +28,32 @@ public class FilesController {
 	
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<File>> getFiles(){
-		List<File> file = fileService.findAll();
+	public ResponseEntity<List<FileDTO>> getFiles(){
+		List<FileDTO> file = fileService.findAll().stream().map(f -> new FileDTO(f)).collect(Collectors.toList());
 		return new ResponseEntity<>(file, HttpStatus.OK); 
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<File> getFileById(@PathVariable Integer id){
-		File file = fileService.findById(id);
+	public ResponseEntity<FileDTO> getFileById(@PathVariable Integer id){
+		FileDTO file = new FileDTO(fileService.findById(id));
 		return new ResponseEntity<>(file, HttpStatus.OK);
 	}
 	
 	@GetMapping("/filesByTask/{id_task}")
-	public ResponseEntity<List<File>> getFilesByTaskId(@PathVariable Integer id_task){
-		List<File> files = fileService.findByTaskId(id_task);
+	public ResponseEntity<List<FileDTO>> getFilesByTaskId(@PathVariable Integer id_task){
+		List<FileDTO> files = fileService.findByTaskId(id_task).stream().map(f -> new FileDTO(f)).collect(Collectors.toList());
 		return new ResponseEntity<>(files, HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<File> addFile(@RequestBody File file){
-		File newFile = fileService.save(file);
+	public ResponseEntity<FileDTO> addFile(@RequestBody File file){
+		FileDTO newFile = new FileDTO(fileService.save(file));
 		return new ResponseEntity<>(newFile, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<File> updateFile(@RequestBody File file){
-		File updatedFile = fileService.save(file);
+	public ResponseEntity<FileDTO> updateFile(@RequestBody File file){
+		FileDTO updatedFile = new FileDTO(fileService.save(file));
 		return new ResponseEntity<>(updatedFile, HttpStatus.OK);
 	}
 	

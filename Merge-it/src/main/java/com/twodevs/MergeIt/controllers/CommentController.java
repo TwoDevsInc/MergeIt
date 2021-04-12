@@ -1,6 +1,7 @@
 package com.twodevs.MergeIt.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.Comment;
+import com.twodevs.MergeIt.models.entities.dto.CommentDTO;
 import com.twodevs.MergeIt.models.services.CommentService;
 
 @RestController
@@ -25,32 +27,32 @@ public class CommentController {
 	CommentService commentService;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<Comment>> getComments(){
-		List<Comment> comment = commentService.findAll();
+	public ResponseEntity<List<CommentDTO>> getComments(){
+		List<CommentDTO> comment = commentService.findAll().stream().map(c -> new CommentDTO(c)).collect(Collectors.toList());
 		return new ResponseEntity<>(comment, HttpStatus.OK);		
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Comment> getCommentById(@PathVariable Integer id){
-		Comment comment = commentService.findById(id);
+	public ResponseEntity<CommentDTO> getCommentById(@PathVariable Integer id){
+		CommentDTO comment = new CommentDTO(commentService.findById(id));
 		return new ResponseEntity<>(comment, HttpStatus.OK);
 	}
 	
 	@GetMapping("/commentsByTask/{id_task}")
-	public ResponseEntity<List<Comment>> getCommentByTaskId(@PathVariable Integer id_task){
-		List<Comment> comments = commentService.findByTaskId(id_task);
+	public ResponseEntity<List<CommentDTO>> getCommentByTaskId(@PathVariable Integer id_task){
+		List<CommentDTO> comments = commentService.findByTaskId(id_task).stream().map(c -> new CommentDTO(c)).collect(Collectors.toList());
 		return new ResponseEntity<>(comments, HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<Comment> addComment(@RequestBody Comment comment){
-		Comment newComment = commentService.save(comment);
+	public ResponseEntity<CommentDTO> addComment(@RequestBody Comment comment){
+		CommentDTO newComment = new CommentDTO(commentService.save(comment));
 		return new ResponseEntity<>(newComment, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Comment> updateComment(@RequestBody Comment comment){
-		Comment commentUpdated = commentService.save(comment);
+	public ResponseEntity<CommentDTO> updateComment(@RequestBody Comment comment){
+		CommentDTO commentUpdated = new CommentDTO(commentService.save(comment));
 		return new ResponseEntity<>(commentUpdated, HttpStatus.OK);
 	}
 	
