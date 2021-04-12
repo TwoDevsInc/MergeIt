@@ -1,6 +1,7 @@
 package com.twodevs.MergeIt.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.twodevs.MergeIt.models.entities.Project;
 import com.twodevs.MergeIt.models.entities.TaskList;
+import com.twodevs.MergeIt.models.entities.dto.TaskListDTO;
 import com.twodevs.MergeIt.models.services.TaskListService;
 
 
@@ -27,32 +28,32 @@ public class TaskListController {
 	TaskListService taskListService;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<TaskList>> getTaskLists(){
-		List<TaskList> taskList = taskListService.findAll();
+	public ResponseEntity<List<TaskListDTO>> getTaskLists(){
+		List<TaskListDTO> taskList = taskListService.findAll().stream().map(t -> new TaskListDTO(t)).collect(Collectors.toList());
 		return new ResponseEntity<>(taskList,HttpStatus.OK);
 	}
 	
 	@GetMapping("/taskListsByProject/{id_project}")
-	public ResponseEntity<List<TaskList>> getTaskListsByProjectId(@PathVariable Integer id_project){
-		List<TaskList> taskLists = taskListService.findByProjectId(id_project);
+	public ResponseEntity<List<TaskListDTO>> getTaskListsByProjectId(@PathVariable Integer id_project){
+		List<TaskListDTO> taskLists = taskListService.findByProjectId(id_project).stream().map(t -> new TaskListDTO(t)).collect(Collectors.toList());
 		return new ResponseEntity<>(taskLists,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<TaskList> getTaskListById(@PathVariable Integer id){
-		TaskList taskList = taskListService.findById(id);
+	public ResponseEntity<TaskListDTO> getTaskListById(@PathVariable Integer id){
+		TaskListDTO taskList = new TaskListDTO(taskListService.findById(id));
 		return new ResponseEntity<>(taskList,HttpStatus.OK);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<TaskList> addTaskList(@RequestBody TaskList taskList){
-		TaskList newTaskList = taskListService.save(taskList);
+	public ResponseEntity<TaskListDTO> addTaskList(@RequestBody TaskList taskList){
+		TaskListDTO newTaskList = new TaskListDTO(taskListService.save(taskList));
 		return new ResponseEntity<>(newTaskList,HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<TaskList> updateTaskList(@RequestBody TaskList taskList){
-		TaskList taskListUpdated = taskListService.save(taskList);
+	public ResponseEntity<TaskListDTO> updateTaskList(@RequestBody TaskList taskList){
+		TaskListDTO taskListUpdated = new TaskListDTO(taskListService.save(taskList));
 		return new ResponseEntity<>(taskListUpdated,HttpStatus.OK);
 	}
 	
