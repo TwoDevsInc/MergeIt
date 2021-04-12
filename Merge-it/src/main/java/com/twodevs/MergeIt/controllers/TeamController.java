@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.Team;
+import com.twodevs.MergeIt.models.entities.User;
+import com.twodevs.MergeIt.models.entities.dto.UserDTO;
 import com.twodevs.MergeIt.models.services.TeamService;
+import com.twodevs.MergeIt.models.services.UserService;
 
 @RestController
 @RequestMapping("/team")
@@ -23,6 +26,9 @@ public class TeamController {
 	
 	@Autowired
 	TeamService teamService;
+	
+	@Autowired
+	UserService userService;
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<Team>> getTeams(){
@@ -39,6 +45,28 @@ public class TeamController {
 	@PostMapping("/add")
 	public ResponseEntity<Team> addTeam(@RequestBody Team team){
 		Team newTeam = teamService.save(team);
+		return new ResponseEntity<>(newTeam,HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/addUser/{id_team}")
+	public ResponseEntity<Team> addUserToTeam(@RequestBody User user,@PathVariable Integer id_team){
+		Team team = teamService.findById(id_team);
+		
+		team.getUsers().add(user);
+		
+		Team newTeam = teamService.save(team);
+		
+		return new ResponseEntity<>(newTeam,HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/addUsers/{id_team}")
+	public ResponseEntity<Team> addUsersToTeam(@RequestBody List<User> users,@PathVariable Integer id_team){
+		Team team = teamService.findById(id_team);
+		
+		users.stream().forEach(u -> team.getUsers().add(u));
+		
+		Team newTeam = teamService.save(team);
+		
 		return new ResponseEntity<>(newTeam,HttpStatus.CREATED);
 	}
 	
