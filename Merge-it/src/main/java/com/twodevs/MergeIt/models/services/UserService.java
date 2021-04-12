@@ -2,6 +2,8 @@ package com.twodevs.MergeIt.models.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.twodevs.MergeIt.models.dao.IUserDAO;
 import com.twodevs.MergeIt.models.entities.User;
 
 @Service
+
 public class UserService implements IUserService{
 
 	@Autowired
