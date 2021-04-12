@@ -1,40 +1,27 @@
 package com.twodevs.MergeIt.models.entities.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-import com.twodevs.MergeIt.models.entities.User;
-
-public class UserDTO implements Serializable{
+public class UserRegisterDTO implements Serializable{
 	
 	private int id;
 	private String username;
+	private String password;
 	private String email;
 	private String name;
 	private String surname;
-	private Set<TeamDTO> teams = new HashSet<TeamDTO>(0);
 	
-	public UserDTO(User user) {
-		this.id = user.getId();
-		this.username = user.getUsername();
-		this.email = user.getEmail();
-		this.name = user.getName();
-		this.surname = user.getSurname();
+	public UserRegisterDTO() {
 	}
-	
-	public UserDTO() {
-	}
-	
-	public UserDTO(int id, String username, String email, String name, String surname,
-			Set<TeamDTO> teams) {
+
+	public UserRegisterDTO(int id, String username, String password, String email, String name, String surname) {
 		super();
 		this.id = id;
 		this.username = username;
+		this.password = password;
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
-		this.teams = teams;
 	}
 
 	public int getId() {
@@ -51,6 +38,14 @@ public class UserDTO implements Serializable{
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmail() {
@@ -76,15 +71,6 @@ public class UserDTO implements Serializable{
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-
-	public Set<TeamDTO> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(Set<TeamDTO> teams) {
-		this.teams = teams;
-	}
-	
 	
 	
 

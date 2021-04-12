@@ -32,17 +32,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception{
-			httpSecurity.csrf().disable()
-			.authorizeRequests().antMatchers("/auth/authenticate").permitAll()
-			.anyRequest().authenticated()
-			.and().sessionManagement()
-			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-			httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//			httpSecurity.csrf().disable()
+//			.authorizeRequests().antMatchers("/auth/authenticate").permitAll()
+//			.anyRequest().authenticated()
+//			.and().sessionManagement()
+//			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//
+//			httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//		
 		
-		
-//		httpSecurity.csrf().disable()
-//		.authorizeRequests().antMatchers("/**").permitAll();
+		httpSecurity.csrf().disable()
+		.authorizeRequests().antMatchers("/**").permitAll();
 	}
 	
 	
