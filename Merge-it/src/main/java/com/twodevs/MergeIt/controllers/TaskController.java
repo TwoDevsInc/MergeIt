@@ -1,6 +1,7 @@
 package com.twodevs.MergeIt.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.Task;
-import com.twodevs.MergeIt.models.entities.TaskList;
+import com.twodevs.MergeIt.models.entities.dto.TaskDTO;
 import com.twodevs.MergeIt.models.services.TaskService;
 
 @RestController
@@ -28,32 +29,32 @@ public class TaskController {
 	
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<Task>> getTasks(){
-		List<Task> task = taskService.findAll();
+	public ResponseEntity<List<TaskDTO>> getTasks(){
+		List<TaskDTO> task = taskService.findAll().stream().map(t -> new TaskDTO(t)).collect(Collectors.toList());
 		return new ResponseEntity<>(task, HttpStatus.OK);
 	}
 	
 	@GetMapping("/tasksByTaskList/{id_task_list}")
-	public ResponseEntity<List<Task>> getTaskByTaskListId(@PathVariable Integer id_task_list){
-		List<Task> tasks = taskService.findByTaskListId(id_task_list);
+	public ResponseEntity<List<TaskDTO>> getTaskByTaskListId(@PathVariable Integer id_task_list){
+		List<TaskDTO> tasks = taskService.findByTaskListId(id_task_list).stream().map(t -> new TaskDTO(t)).collect(Collectors.toList());
 		return new ResponseEntity<>(tasks,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Task> getTaskById(@PathVariable Integer id){
-		Task task = taskService.findById(id);
+	public ResponseEntity<TaskDTO> getTaskById(@PathVariable Integer id){
+		TaskDTO task = new TaskDTO(taskService.findById(id));
 		return new ResponseEntity<>(task, HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<Task> addTask(@RequestBody Task task){
-		Task newTask = taskService.save(task);
+	public ResponseEntity<TaskDTO> addTask(@RequestBody Task task){
+		TaskDTO newTask = new TaskDTO(taskService.save(task));
 		return new ResponseEntity<>(newTask, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Task> update(@RequestBody Task task){
-		Task updatedTask = taskService.save(task);
+	public ResponseEntity<TaskDTO> update(@RequestBody Task task){
+		TaskDTO updatedTask = new TaskDTO(taskService.save(task));
 		return new ResponseEntity<>(updatedTask, HttpStatus.OK);
 	}
 	

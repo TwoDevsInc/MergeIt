@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.twodevs.MergeIt.models.entities.Project;
+
 
 public class ProjectDTO implements Serializable{
 	
@@ -14,6 +16,11 @@ public class ProjectDTO implements Serializable{
 	public ProjectDTO() {
 	}
 
+	public ProjectDTO(Project project) {
+		this.id = project.getId();
+		this.name = project.getName();
+	}
+	
 	public ProjectDTO(int id, String name, Set<TaskListDTO> taskLists) {
 		super();
 		this.id = id;

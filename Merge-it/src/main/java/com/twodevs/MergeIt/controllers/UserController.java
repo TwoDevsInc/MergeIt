@@ -1,6 +1,7 @@
 package com.twodevs.MergeIt.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.twodevs.MergeIt.models.entities.User;
+import com.twodevs.MergeIt.models.entities.dto.UserDTO;
 import com.twodevs.MergeIt.models.services.UserService;
 
 
@@ -28,26 +30,26 @@ public class UserController {
 	UserService userService;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<User>> getUsers(){
-		List<User> user = userService.findAll();
+	public ResponseEntity<List<UserDTO>> getUsers(){
+		List<UserDTO> user = userService.findAll().stream().map(t -> new UserDTO(t)).collect(Collectors.toList());
 		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<User> getUserById(@PathVariable Integer id){
-		User user = userService.findById(id);
+	public ResponseEntity<UserDTO> getUserById(@PathVariable Integer id){
+		UserDTO user = new UserDTO(userService.findById(id));
 		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<User> addUser(@RequestBody User user){
-		User newUser = userService.save(user);
+	public ResponseEntity<UserDTO> addUser(@RequestBody User user){
+		UserDTO newUser = new UserDTO(userService.save(user));
 		return new ResponseEntity<>(newUser,HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<User> updateUser(@RequestBody User user){
-		User userUpdated = userService.save(user);
+	public ResponseEntity<UserDTO> updateUser(@RequestBody User user){
+		UserDTO userUpdated = new UserDTO(userService.save(user));
 		return new ResponseEntity<>(userUpdated,HttpStatus.OK);
 	}
 	

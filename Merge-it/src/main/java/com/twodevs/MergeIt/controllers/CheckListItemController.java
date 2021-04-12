@@ -1,6 +1,7 @@
 package com.twodevs.MergeIt.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.CheckListItem;
+import com.twodevs.MergeIt.models.entities.dto.CheckListItemDTO;
 import com.twodevs.MergeIt.models.services.CheckListItemService;
 
 @RestController
@@ -25,32 +27,32 @@ public class CheckListItemController {
 	CheckListItemService checkListItemService;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<CheckListItem>> getCheckListItems(){
-		List<CheckListItem> checkListItem = checkListItemService.findAll();
+	public ResponseEntity<List<CheckListItemDTO>> getCheckListItems(){
+		List<CheckListItemDTO> checkListItem = checkListItemService.findAll().stream().map(i -> new CheckListItemDTO(i)).collect(Collectors.toList());
 		return new ResponseEntity<>(checkListItem,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<CheckListItem> getCheckListItemById(@PathVariable Integer id){
-		CheckListItem checkListItem = checkListItemService.findById(id);
+	public ResponseEntity<CheckListItemDTO> getCheckListItemById(@PathVariable Integer id){
+		CheckListItemDTO checkListItem = new CheckListItemDTO(checkListItemService.findById(id));
 		return new ResponseEntity<>(checkListItem,HttpStatus.OK);
 	}
 	
 	@GetMapping("/checkListItemsByCheckList/{id_check_list}")
-	public ResponseEntity<List<CheckListItem>> getCheckListItemByCheckListId(@PathVariable Integer id_check_list){
-		List<CheckListItem> checkListItems = checkListItemService.findByCheckListId(id_check_list);
+	public ResponseEntity<List<CheckListItemDTO>> getCheckListItemByCheckListId(@PathVariable Integer id_check_list){
+		List<CheckListItemDTO> checkListItems = checkListItemService.findByCheckListId(id_check_list).stream().map(i -> new CheckListItemDTO(i)).collect(Collectors.toList());
 		return new ResponseEntity<>(checkListItems,HttpStatus.OK);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<CheckListItem> addCheckListItem(@RequestBody CheckListItem checkListItem){
-		CheckListItem newCheckListItem = checkListItemService.save(checkListItem);
+	public ResponseEntity<CheckListItemDTO> addCheckListItem(@RequestBody CheckListItem checkListItem){
+		CheckListItemDTO newCheckListItem = new CheckListItemDTO(checkListItemService.save(checkListItem));
 		return new ResponseEntity<>(newCheckListItem,HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<CheckListItem> updateCheckListItem(@RequestBody CheckListItem checkListItem){
-		CheckListItem checkListItemUpdated = checkListItemService.save(checkListItem);
+	public ResponseEntity<CheckListItemDTO> updateCheckListItem(@RequestBody CheckListItem checkListItem){
+		CheckListItemDTO checkListItemUpdated = new CheckListItemDTO(checkListItemService.save(checkListItem));
 		return new ResponseEntity<>(checkListItemUpdated,HttpStatus.OK);
 	}
 	
