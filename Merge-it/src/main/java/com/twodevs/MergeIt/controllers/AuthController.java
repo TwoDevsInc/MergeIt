@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.AuthRequest;
 import com.twodevs.MergeIt.models.entities.AuthResponse;
+import com.twodevs.MergeIt.models.entities.dto.UserDTO;
 import com.twodevs.MergeIt.security.MyUserDetailsService;
 import com.twodevs.MergeIt.security.util.JWTUtil;
 
@@ -34,12 +35,14 @@ public class AuthController {
 	@Autowired
 	private JWTUtil jwtTokenUtil;	
 	
-	@GetMapping("/prueba")
-	public String pruebaAuth(){
-		return "Prueba Auth";
+	@PostMapping("/register")
+	public ResponseEntity<?> registerUser(@RequestBody UserDTO user){
+		
+		
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/authenticate")
+	@PostMapping("/login")
 	public ResponseEntity<AuthResponse> createAuthenticationToken(@RequestBody AuthRequest authenticationRequest) throws Exception{
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
