@@ -29,9 +29,7 @@ public class Comment implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	@JsonIgnoreProperties({"taskList","files","comments","checkLists","hibernateLazyInitializer", "handler"})
 	private Task task;
-	@JsonIgnoreProperties({"teams","hibernateLazyInitializer", "handler"})
 	private User user;
 	private String text;
 	private LocalDate createdAt;
@@ -96,7 +94,7 @@ public class Comment implements java.io.Serializable {
 		this.text = text;
 	}
 
-	@Column(name = "created_at", nullable = false, length = 13)
+	@Column(name = "created_at", nullable = true, length = 13)
 	public LocalDate getCreatedAt() {
 		return this.createdAt;
 	}

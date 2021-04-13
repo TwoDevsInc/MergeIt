@@ -1,46 +1,41 @@
 package com.twodevs.MergeIt.models.entities.dto;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.twodevs.MergeIt.models.entities.User;
 
-public class UserDTO implements Serializable{
-	
+public class UserTeamsDTO {
+
 	private int id;
 	private String username;
 	private String email;
 	private String name;
 	private String surname;
-	
-	public UserDTO(User user) {
+
+	private Set<TeamDTO> teams = new HashSet<TeamDTO>(0);
+
+	public UserTeamsDTO(User user) {
 		this.id = user.getId();
 		this.username = user.getUsername();
 		this.email = user.getEmail();
 		this.name = user.getName();
-		this.surname = user.getSurname();
+		this.surname = user.getSurname();		
+		user.getTeams().stream().forEach(t -> teams.add(new TeamDTO(t)));
 	}
-	
-	public UserDTO(UserRegisterDTO user) {
-		this.username = user.getUsername();
-		this.email = user.getEmail();
-		this.name = user.getName();
-		this.surname = user.getSurname();
+
+	public UserTeamsDTO() {
+
 	}
-	
-	public UserDTO() {
-	}
-	
-	public UserDTO(int id, String username, String email, String name, String surname,
-			Set<TeamDTO> teams) {
+
+	public UserTeamsDTO(int id, String username, String email, String name, String surname, Set<TeamDTO> teams) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
+		this.teams = teams;
 	}
 
 	public int getId() {
@@ -82,7 +77,14 @@ public class UserDTO implements Serializable{
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-	
+
+	public Set<TeamDTO> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Set<TeamDTO> teams) {
+		this.teams = teams;
+	}
 	
 	
 

@@ -2,11 +2,14 @@ package com.twodevs.MergeIt.models.entities.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.twodevs.MergeIt.models.entities.File;
 
 public class FileDTO implements Serializable {
 	
 	private int id;
+	@JsonIgnoreProperties("taskList")
+	private TaskDTO task;
 	private String name;
 	private String path;
 	private String type;
@@ -16,17 +19,19 @@ public class FileDTO implements Serializable {
 		this.name = file.getName();
 		this.path = file.getPath();
 		this.type = file.getType();
+		this.task = new TaskDTO(file.getTask());
 	}
 	
 	public FileDTO() {
 	}
 
-	public FileDTO(int id, String name, String path, String type) {
+	public FileDTO(int id, String name, String path, String type,TaskDTO task) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.path = path;
 		this.type = type;
+		this.task = task;
 	}
 
 	public int getId() {
@@ -60,8 +65,13 @@ public class FileDTO implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
-	
+
+	public TaskDTO getTask() {
+		return task;
+	}
+
+	public void setTask(TaskDTO task) {
+		this.task = task;
+	}	
 	
 }

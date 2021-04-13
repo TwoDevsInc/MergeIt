@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.CheckList;
+import com.twodevs.MergeIt.models.entities.Comment;
+import com.twodevs.MergeIt.models.entities.Task;
 import com.twodevs.MergeIt.models.entities.TaskList;
 import com.twodevs.MergeIt.models.entities.dto.CheckListDTO;
+import com.twodevs.MergeIt.models.entities.dto.CommentDTO;
 import com.twodevs.MergeIt.models.services.CheckListService;
+import com.twodevs.MergeIt.models.services.TaskService;
 
 @RestController
 @RequestMapping("/checkList")
@@ -27,6 +31,8 @@ public class CheckListController {
 	@Autowired
 	CheckListService checkListService;
 	
+	@Autowired
+	TaskService taskService;
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<CheckListDTO>> getCheckLists(){
@@ -50,6 +56,16 @@ public class CheckListController {
 	public ResponseEntity<CheckListDTO> addCheckList(@RequestBody CheckList checkList){
 		CheckListDTO newCheckList = new CheckListDTO(checkListService.save(checkList));
 		return new ResponseEntity<>(newCheckList,HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/addCheckListTo/{id_task}")
+	public ResponseEntity<CheckListDTO> addFileToTask(@RequestBody CheckList checkList,@PathVariable Integer id_task){
+		
+		Task task = taskService.findById(id_task);		
+		checkList.setTask(task);
+		
+		CheckListDTO newCheckList = new CheckListDTO(checkListService.save(checkList));
+		return new ResponseEntity<>(newCheckList, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")

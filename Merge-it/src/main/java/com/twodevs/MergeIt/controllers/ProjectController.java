@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.Project;
+import com.twodevs.MergeIt.models.entities.Team;
 import com.twodevs.MergeIt.models.entities.dto.ProjectDTO;
 import com.twodevs.MergeIt.models.services.ProjectService;
+import com.twodevs.MergeIt.models.services.TeamService;
 
 
 @RestController
@@ -26,6 +28,9 @@ public class ProjectController {
 	
 	@Autowired
 	ProjectService projectService;
+	
+	@Autowired
+	TeamService teamService;
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<ProjectDTO>> getProjects(){
@@ -48,6 +53,17 @@ public class ProjectController {
 	@PostMapping("/add")
 	public ResponseEntity<ProjectDTO> addProject(@RequestBody Project project){
 		ProjectDTO newProject = new ProjectDTO(projectService.save(project));
+		return new ResponseEntity<>(newProject,HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/addProjectTo/{id_team}")
+	public ResponseEntity<ProjectDTO> addProject(@RequestBody Project project, @PathVariable Integer id_team){
+		Team team = teamService.findById(id_team);
+		
+		project.setTeam(team);
+		
+		ProjectDTO newProject = new ProjectDTO(projectService.save(project));
+		
 		return new ResponseEntity<>(newProject,HttpStatus.CREATED);
 	}
 	

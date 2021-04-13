@@ -3,12 +3,16 @@ package com.twodevs.MergeIt.models.entities.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.twodevs.MergeIt.models.entities.Project;
 import com.twodevs.MergeIt.models.entities.TaskList;
 
 public class TaskListDTO implements Serializable{
 	
 	private int id;
 	private String name;
+	@JsonIgnoreProperties("team")
+	private ProjectDTO project;
 	private LocalDate createdAt;
 	private Boolean archived;
 	
@@ -17,15 +21,17 @@ public class TaskListDTO implements Serializable{
 		this.name = taskList.getName();
 		this.createdAt = taskList.getCreatedAt();
 		this.archived = taskList.getArchived();
+		this.project = new ProjectDTO(taskList.getProject());
 	}
 	
 	public TaskListDTO() {
-	}
-	
-	public TaskListDTO(int id, String name, LocalDate createdAt, Boolean archived) {
+	}	
+
+	public TaskListDTO(int id, String name, ProjectDTO project, LocalDate createdAt, Boolean archived) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.project = project;
 		this.createdAt = createdAt;
 		this.archived = archived;
 	}
@@ -62,7 +68,13 @@ public class TaskListDTO implements Serializable{
 		this.archived = archived;
 	}
 
-	
+	public ProjectDTO getProject() {
+		return project;
+	}
+
+	public void setProject(ProjectDTO project) {
+		this.project = project;
+	}	
 	
 
 }

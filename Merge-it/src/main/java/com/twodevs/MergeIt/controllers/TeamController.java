@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.twodevs.MergeIt.models.entities.Team;
 import com.twodevs.MergeIt.models.entities.User;
 import com.twodevs.MergeIt.models.entities.dto.UserDTO;
+import com.twodevs.MergeIt.models.entities.dto.UserTeamsDTO;
 import com.twodevs.MergeIt.models.entities.dto.TaskListDTO;
 import com.twodevs.MergeIt.models.entities.dto.TeamDTO;
 import com.twodevs.MergeIt.models.services.TeamService;
@@ -37,6 +38,13 @@ public class TeamController {
 	public ResponseEntity<List<TeamDTO>> getTeams(){
 		List<TeamDTO> team = teamService.findAll().stream().map(t -> new TeamDTO(t)).collect(Collectors.toList());
 		return new ResponseEntity<>(team,HttpStatus.OK);
+	}
+	
+	@GetMapping("/userTeams/{id_user}")
+	public ResponseEntity<UserTeamsDTO> getTeamsByUser(@PathVariable Integer id_user){
+		User user = userService.findById(id_user);
+		UserTeamsDTO userTeams = new UserTeamsDTO(user);
+		return new ResponseEntity<>(userTeams,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")

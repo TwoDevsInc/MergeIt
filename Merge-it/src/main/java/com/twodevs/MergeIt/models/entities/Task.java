@@ -34,18 +34,14 @@ public class Task implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	@JsonIgnoreProperties({"project","taskLists","hibernateLazyInitializer", "handler"})
 	private TaskList taskList;
 	private String name;
 	private String description;
 	private LocalDate createdAt;
 	private String color;
 	private Boolean archivada;
-	@JsonIgnore
 	private Set<File> files = new HashSet<File>(0);
-	@JsonIgnore
 	private Set<Comment> comments = new HashSet<Comment>(0);
-	@JsonIgnore
 	private Set<CheckList> checkLists = new HashSet<CheckList>(0);
 
 	public Task() {
@@ -107,7 +103,7 @@ public class Task implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@Column(name = "created_at", nullable = false, length = 13)
+	@Column(name = "created_at", nullable = true, length = 13)
 	public LocalDate getCreatedAt() {
 		return this.createdAt;
 	}

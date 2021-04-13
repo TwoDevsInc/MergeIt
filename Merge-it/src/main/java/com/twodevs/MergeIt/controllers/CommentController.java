@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.Comment;
+import com.twodevs.MergeIt.models.entities.File;
+import com.twodevs.MergeIt.models.entities.Task;
 import com.twodevs.MergeIt.models.entities.dto.CommentDTO;
+import com.twodevs.MergeIt.models.entities.dto.FileDTO;
 import com.twodevs.MergeIt.models.services.CommentService;
+import com.twodevs.MergeIt.models.services.TaskService;
 
 @RestController
 @RequestMapping("/comment")
@@ -25,6 +29,9 @@ public class CommentController {
 
 	@Autowired
 	CommentService commentService;
+	
+	@Autowired
+	TaskService taskService;
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<CommentDTO>> getComments(){
@@ -46,6 +53,16 @@ public class CommentController {
 	
 	@PostMapping("/add")
 	public ResponseEntity<CommentDTO> addComment(@RequestBody Comment comment){
+		CommentDTO newComment = new CommentDTO(commentService.save(comment));
+		return new ResponseEntity<>(newComment, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/addCommentTo/{id_task}")
+	public ResponseEntity<CommentDTO> addFileToTask(@RequestBody Comment comment,@PathVariable Integer id_task){
+		
+		Task task = taskService.findById(id_task);		
+		comment.setTask(task);
+		
 		CommentDTO newComment = new CommentDTO(commentService.save(comment));
 		return new ResponseEntity<>(newComment, HttpStatus.CREATED);
 	}
