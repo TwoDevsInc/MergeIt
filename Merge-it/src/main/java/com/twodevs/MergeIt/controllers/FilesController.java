@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twodevs.MergeIt.models.entities.File;
+import com.twodevs.MergeIt.models.entities.Task;
 import com.twodevs.MergeIt.models.entities.dto.FileDTO;
 import com.twodevs.MergeIt.models.services.FileService;
+import com.twodevs.MergeIt.models.services.TaskService;
 
 @RestController
 @RequestMapping("/file")
@@ -25,6 +27,9 @@ public class FilesController {
 
 	@Autowired
 	FileService fileService;
+	
+	@Autowired
+	TaskService taskService;
 	
 	
 	@GetMapping("/all")
@@ -47,6 +52,16 @@ public class FilesController {
 	
 	@PostMapping("/add")
 	public ResponseEntity<FileDTO> addFile(@RequestBody File file){
+		FileDTO newFile = new FileDTO(fileService.save(file));
+		return new ResponseEntity<>(newFile, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/addFileTo/{id_task}")
+	public ResponseEntity<FileDTO> addFileToTask(@RequestBody File file,@PathVariable Integer id_task){
+		
+		Task task = taskService.findById(id_task);		
+		file.setTask(task);
+		
 		FileDTO newFile = new FileDTO(fileService.save(file));
 		return new ResponseEntity<>(newFile, HttpStatus.CREATED);
 	}

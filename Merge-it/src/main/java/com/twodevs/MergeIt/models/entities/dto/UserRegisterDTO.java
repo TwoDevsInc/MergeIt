@@ -1,35 +1,30 @@
 package com.twodevs.MergeIt.models.entities.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class UserRegisterDTO implements Serializable{
 	
-	private int id;
 	private String username;
 	private String password;
 	private String email;
 	private String name;
 	private String surname;
+	private LocalDate registerDate;
 	
 	public UserRegisterDTO() {
 	}
+	
 
-	public UserRegisterDTO(int id, String username, String password, String email, String name, String surname) {
+	public UserRegisterDTO(String username, String password, String email, String name, String surname,
+			LocalDate registerDate) {
 		super();
-		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+		this.registerDate = registerDate;
 	}
 
 	public String getUsername() {
@@ -71,6 +66,17 @@ public class UserRegisterDTO implements Serializable{
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
+
+
+	public LocalDate getRegisterDate() {
+		return registerDate;
+	}
+
+
+	public void setRegisterDate(LocalDate registerDate) {
+		this.registerDate = registerDate;
+	}
+	
 	
 	
 

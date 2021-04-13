@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.twodevs.MergeIt.models.entities.CheckList;
 import com.twodevs.MergeIt.models.entities.Comment;
 import com.twodevs.MergeIt.models.entities.File;
@@ -16,12 +17,11 @@ public class TaskDTO implements Serializable{
 	private int id;
 	private String name;
 	private String description;
+	@JsonIgnoreProperties("project")
+	private TaskListDTO taskList;
 	private LocalDate createdAt;
 	private String color;
 	private Boolean archived;
-	private Set<FileDTO> files = new HashSet<FileDTO>(0);
-	private Set<CommentDTO> comments = new HashSet<CommentDTO>(0);
-	private Set<CheckListDTO> checkLists = new HashSet<CheckListDTO>(0);
 	
 	public TaskDTO(Task task) {
 		this.id = task.getId();
@@ -30,23 +30,23 @@ public class TaskDTO implements Serializable{
 		this.createdAt = task.getCreatedAt();
 		this.color = task.getColor();
 		this.archived = task.getArchivada();
+		this.taskList = new TaskListDTO(task.getTaskList());
 	}
 	
 	public TaskDTO() {
 	}
-
-	public TaskDTO(int id, String name, String description, LocalDate createdAt, String color, Boolean archived,
-			Set<FileDTO> files, Set<CommentDTO> comments, Set<CheckListDTO> checkLists) {
+	
+	
+	public TaskDTO(int id, String name, String description, TaskListDTO taskList, LocalDate createdAt, String color,
+			Boolean archived) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.taskList = taskList;
 		this.createdAt = createdAt;
 		this.color = color;
 		this.archived = archived;
-		this.files = files;
-		this.comments = comments;
-		this.checkLists = checkLists;
 	}
 
 	public int getId() {
@@ -95,35 +95,15 @@ public class TaskDTO implements Serializable{
 
 	public void setArchived(Boolean archived) {
 		this.archived = archived;
+	}	
+
+	public TaskListDTO getTaskList() {
+		return taskList;
 	}
 
-	public Set<FileDTO> getFiles() {
-		return files;
+	public void setTaskList(TaskListDTO taskList) {
+		this.taskList = taskList;
 	}
-
-	public void setFiles(Set<FileDTO> files) {
-		this.files = files;
-	}
-
-	public Set<CommentDTO> getComments() {
-		return comments;
-	}
-
-	public void setComments(Set<CommentDTO> comments) {
-		this.comments = comments;
-	}
-
-	public Set<CheckListDTO> getCheckLists() {
-		return checkLists;
-	}
-
-	public void setCheckLists(Set<CheckListDTO> checkLists) {
-		this.checkLists = checkLists;
-	}
-	
-	
-	
-	
 	
 
 }

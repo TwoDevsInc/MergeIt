@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.twodevs.MergeIt.models.entities.Project;
 import com.twodevs.MergeIt.models.entities.TaskList;
 import com.twodevs.MergeIt.models.entities.dto.TaskListDTO;
+import com.twodevs.MergeIt.models.services.ProjectService;
 import com.twodevs.MergeIt.models.services.TaskListService;
 
 
@@ -26,6 +28,9 @@ public class TaskListController {
 	
 	@Autowired
 	TaskListService taskListService;
+	
+	@Autowired
+	ProjectService projectService;
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<TaskListDTO>> getTaskLists(){
@@ -48,6 +53,17 @@ public class TaskListController {
 	@PostMapping("/add")
 	public ResponseEntity<TaskListDTO> addTaskList(@RequestBody TaskList taskList){
 		TaskListDTO newTaskList = new TaskListDTO(taskListService.save(taskList));
+		return new ResponseEntity<>(newTaskList,HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/addTaskListTo/{id_project}")
+	public ResponseEntity<TaskListDTO> addTaskList(@RequestBody TaskList taskList, @PathVariable Integer id_project){
+		
+		Project project = projectService.findById(id_project);		
+		taskList.setProject(project);	
+		
+		TaskListDTO newTaskList = new TaskListDTO(taskListService.save(taskList));
+		
 		return new ResponseEntity<>(newTaskList,HttpStatus.CREATED);
 	}
 	

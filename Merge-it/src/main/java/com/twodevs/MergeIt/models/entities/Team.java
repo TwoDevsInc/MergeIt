@@ -34,9 +34,7 @@ public class Team implements java.io.Serializable {
 	private int id;
 	private String name;
 	private LocalDate createdAt;
-	@JsonIgnore
 	private Set<User> users = new HashSet<User>(0);
-	@JsonIgnoreProperties({"taskLists","team"})
 	private Set<Project> projects = new HashSet<Project>(0);
 
 	public Team() {
@@ -75,7 +73,7 @@ public class Team implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "created_at", nullable = false, length = 13)
+	@Column(name = "created_at", nullable = true, length = 13)
 	public LocalDate getCreatedAt() {
 		return this.createdAt;
 	}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.twodevs.MergeIt.models.entities.CheckList;
 
 
@@ -11,24 +12,26 @@ public class CheckListDTO implements Serializable {
 	
 	private int id;
 	private String name;
+	@JsonIgnoreProperties("taskList")
+	private TaskDTO task;
 	private Boolean done;
-	private Set<CheckListItemDTO> checkListItems = new HashSet<CheckListItemDTO>(0);
 	
 	public CheckListDTO(CheckList checkList) {
 		this.id = checkList.getId();
 		this.name = checkList.getName();
 		this.done = checkList.getDone();
+		this.task = new TaskDTO(checkList.getTask());
 	}
 	
 	public CheckListDTO() {
-	}
+	}	
 
-	public CheckListDTO(int id, String name, Boolean done, Set<CheckListItemDTO> checkListItems) {
+	public CheckListDTO(int id, String name, TaskDTO task, Boolean done) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.task = task;
 		this.done = done;
-		this.checkListItems = checkListItems;
 	}
 
 	public int getId() {
@@ -55,12 +58,12 @@ public class CheckListDTO implements Serializable {
 		this.done = done;
 	}
 
-	public Set<CheckListItemDTO> getCheckListItems() {
-		return checkListItems;
+	public TaskDTO getTask() {
+		return task;
 	}
 
-	public void setCheckListItems(Set<CheckListItemDTO> checkListItems) {
-		this.checkListItems = checkListItems;
+	public void setTask(TaskDTO task) {
+		this.task = task;
 	}
 	
 	

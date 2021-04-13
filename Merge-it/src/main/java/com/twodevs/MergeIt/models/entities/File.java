@@ -25,7 +25,6 @@ public class File implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	@JsonIgnoreProperties({"taskList","files","comments","checkLists","hibernateLazyInitializer", "handler"})
 	private Task task;
 	private String name;
 	private String path;

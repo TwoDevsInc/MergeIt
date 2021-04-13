@@ -33,12 +33,10 @@ public class Project implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
-	@JsonIgnoreProperties({"users","projects","hibernateLazyInitializer", "handler"})  
+	private int id;  
 	private Team team;
 	private String name;
 	private LocalDate createdAt;
-	@JsonIgnore
 	private Set<TaskList> taskLists = new HashSet<TaskList>(0);
 
 	public Project() {
@@ -88,7 +86,7 @@ public class Project implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "created_at", nullable = false, length = 13)
+	@Column(name = "created_at", nullable = true, length = 13)
 	public LocalDate getCreatedAt() {
 		return this.createdAt;
 	}

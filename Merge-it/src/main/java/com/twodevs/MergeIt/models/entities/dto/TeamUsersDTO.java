@@ -1,30 +1,30 @@
 package com.twodevs.MergeIt.models.entities.dto;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.twodevs.MergeIt.models.entities.Team;
 
-
-public class TeamDTO implements Serializable{
+public class TeamUsersDTO {
 	
 	private int id;
 	private String name;
+	private Set<UserDTO> users = new HashSet<UserDTO>(0);
 	
-	public TeamDTO(Team team) {
+	public TeamUsersDTO(Team team) {
 		this.id = team.getId();
 		this.name = team.getName();
+		team.getUsers().stream().forEach(u -> users.add(new UserDTO(u)));
 	}
 	
-	public TeamDTO() {
+	public TeamUsersDTO() {
 	}
-
-	public TeamDTO(int id, String name, Set<UserDTO> users) {
+	
+	public TeamUsersDTO(int id, String name, Set<UserDTO> users) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.users = users;
 	}
 
 	public int getId() {
@@ -43,8 +43,15 @@ public class TeamDTO implements Serializable{
 		this.name = name;
 	}
 
-	
-	
-	
+	public Set<UserDTO> getUsers() {
+		return users;
+	}
 
+	public void setUsers(Set<UserDTO> users) {
+		this.users = users;
+	}
+	
+	
+	
+	
 }

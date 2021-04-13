@@ -34,12 +34,10 @@ public class TaskList implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	@JsonIgnoreProperties({"taskLists","team","hibernateLazyInitializer", "handler"}) 
 	private Project project;
 	private String name;
 	private LocalDate createdAt;
 	private Boolean archived;
-	@JsonIgnore
 	private Set<Task> tasks = new HashSet<Task>(0);
 
 	public TaskList() {
@@ -89,8 +87,8 @@ public class TaskList implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	@Column(name = "created_at", nullable = false, length = 13)
+	
+	@Column(name = "created_at", nullable = true, length = 13)
 	public LocalDate getCreatedAt() {
 		return this.createdAt;
 	}
