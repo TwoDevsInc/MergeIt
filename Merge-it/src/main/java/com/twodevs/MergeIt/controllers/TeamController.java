@@ -62,34 +62,34 @@ public class TeamController {
 	}
 	
 	@PutMapping("/addUser/{id_team}")
-	public ResponseEntity<Team> addUserToTeam(@RequestBody User user,@PathVariable Integer id_team){
+	public ResponseEntity<TeamDTO> addUserToTeam(@RequestBody User user,@PathVariable Integer id_team){
 		Team team = teamService.findById(id_team);
 		
 		team.getUsers().add(user);
 		
-		Team newTeam = teamService.save(team);
+		TeamDTO newTeam = new TeamDTO(teamService.save(team));
 		
 		return new ResponseEntity<>(newTeam,HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/deleteUser/{id_team}")
-	public ResponseEntity<Team> deleteUserToTeam(@RequestBody User user,@PathVariable Integer id_team){
+	public ResponseEntity<TeamDTO> deleteUserToTeam(@RequestBody User user,@PathVariable Integer id_team){
 		Team team = teamService.findById(id_team);
 		
 		team.getUsers().remove(user);
 		
-		Team newTeam = teamService.save(team);
+		TeamDTO newTeam = new TeamDTO(teamService.save(team));
 		
 		return new ResponseEntity<>(newTeam,HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/addUsers/{id_team}")
-	public ResponseEntity<Team> addUsersToTeam(@RequestBody List<User> users,@PathVariable Integer id_team){
+	public ResponseEntity<TeamDTO> addUsersToTeam(@RequestBody List<User> users,@PathVariable Integer id_team){
 		Team team = teamService.findById(id_team);
 		
 		users.stream().forEach(u -> team.getUsers().add(u));
 		
-		Team newTeam = teamService.save(team);
+		TeamDTO newTeam = new TeamDTO(teamService.save(team));
 		
 		return new ResponseEntity<>(newTeam,HttpStatus.CREATED);
 	}
