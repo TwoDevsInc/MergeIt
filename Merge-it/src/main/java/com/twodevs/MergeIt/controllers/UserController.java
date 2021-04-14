@@ -56,6 +56,12 @@ public class UserController {
 		UserDTO user = new UserDTO(userService.findById(id));
 		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
+	
+	@GetMapping("/findByUserName/{UserName}")
+	public ResponseEntity<UserDTO> getUserById(@PathVariable String UserName){
+		UserDTO user = new UserDTO(userService.findByUsername(UserName));
+		return new ResponseEntity<>(user,HttpStatus.OK);
+	}
 
 	@PostMapping("/add")
 	public ResponseEntity<UserDTO> addUser(@RequestBody User user){
