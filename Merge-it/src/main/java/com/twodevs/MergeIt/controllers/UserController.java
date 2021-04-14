@@ -1,5 +1,6 @@
 package com.twodevs.MergeIt.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,10 +43,12 @@ public class UserController {
 	}
 	
 	@GetMapping("/teamUsers/{id_team}")
-	public ResponseEntity<TeamUsersDTO> getUsersByTeam(@PathVariable Integer id_team){
+	public ResponseEntity<List<UserDTO>> getUsersByTeam(@PathVariable Integer id_team){
 		Team team = teamService.findById(id_team);
-		TeamUsersDTO teamUsers = new TeamUsersDTO(team);
-		return new ResponseEntity<>(teamUsers,HttpStatus.OK);
+		List<UserDTO> users = new ArrayList<UserDTO>();
+		team.getUsers().stream().forEach(u -> users.add(new UserDTO(u)));
+		
+		return new ResponseEntity<>(users,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
