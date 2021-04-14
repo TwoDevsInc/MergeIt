@@ -70,6 +70,17 @@ public class TeamController {
 		return new ResponseEntity<>(newTeam,HttpStatus.CREATED);
 	}
 	
+	@PutMapping("/deleteUser/{id_team}")
+	public ResponseEntity<Team> deleteUserToTeam(@RequestBody User user,@PathVariable Integer id_team){
+		Team team = teamService.findById(id_team);
+		
+		team.getUsers().remove(user);
+		
+		Team newTeam = teamService.save(team);
+		
+		return new ResponseEntity<>(newTeam,HttpStatus.CREATED);
+	}
+	
 	@PutMapping("/addUsers/{id_team}")
 	public ResponseEntity<Team> addUsersToTeam(@RequestBody List<User> users,@PathVariable Integer id_team){
 		Team team = teamService.findById(id_team);
@@ -89,7 +100,11 @@ public class TeamController {
 	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteTeam(@PathVariable("id") Integer id){
-		teamService.deleteById(id);
+		Team team = teamService.findById(id);
+		
+		team.getUsers().forEach(u -> team.removeUser(u));
+		teamService.save(team);
+		teamService.delete(team);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
