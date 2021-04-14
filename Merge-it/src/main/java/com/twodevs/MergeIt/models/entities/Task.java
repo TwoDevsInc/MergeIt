@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -130,7 +131,7 @@ public class Task implements java.io.Serializable {
 		this.archivada = archivada;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "task")
 	public Set<File> getFiles() {
 		return this.files;
 	}
@@ -139,7 +140,7 @@ public class Task implements java.io.Serializable {
 		this.files = files;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "task")
 	public Set<Comment> getComments() {
 		return this.comments;
 	}
@@ -148,7 +149,7 @@ public class Task implements java.io.Serializable {
 		this.comments = comments;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "task")
 	public Set<CheckList> getCheckLists() {
 		return this.checkLists;
 	}

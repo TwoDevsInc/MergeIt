@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -94,7 +95,7 @@ public class Team implements java.io.Serializable {
 		this.users = users;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "team") 
+	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE, mappedBy = "team") 
 	public Set<Project> getProjects() {
 		return this.projects;
 	}
@@ -102,5 +103,10 @@ public class Team implements java.io.Serializable {
 	public void setProjects(Set<Project> projects) {
 		this.projects = projects;
 	}
+	
+	public void removeUser(User user) {
+        users.remove(user);
+        user.getTeams().remove(this);
+    }  
 
 }

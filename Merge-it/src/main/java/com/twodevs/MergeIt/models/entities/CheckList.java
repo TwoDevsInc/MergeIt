@@ -3,6 +3,8 @@ package com.twodevs.MergeIt.models.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -88,7 +90,7 @@ public class CheckList implements java.io.Serializable {
 		this.done = done;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "checklist")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE,mappedBy = "checklist")
 	public Set<CheckListItem> getCheckListItems() {
 		return this.checkListItems;
 	}
