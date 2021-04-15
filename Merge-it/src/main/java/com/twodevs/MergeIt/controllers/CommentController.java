@@ -1,5 +1,8 @@
 package com.twodevs.MergeIt.controllers;
 
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +25,7 @@ import com.twodevs.MergeIt.models.entities.dto.CommentDTO;
 import com.twodevs.MergeIt.models.entities.dto.FileDTO;
 import com.twodevs.MergeIt.models.services.CommentService;
 import com.twodevs.MergeIt.models.services.TaskService;
+
 
 @RestController
 @RequestMapping("/comment")
@@ -62,6 +66,7 @@ public class CommentController {
 		
 		Task task = taskService.findById(id_task);		
 		comment.setTask(task);
+		comment.setCreatedAt(LocalDate.now());
 		
 		CommentDTO newComment = new CommentDTO(commentService.save(comment));
 		return new ResponseEntity<>(newComment, HttpStatus.CREATED);
