@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ public class AuthController {
 	
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@RequestBody UserRegisterDTO user){
-		
+		user.setRegisterDate(LocalDate.now());
 		userService.save(new User(user));
 		
 		return new ResponseEntity<>(HttpStatus.CREATED);
@@ -62,8 +63,12 @@ public class AuthController {
 		
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
-		
-		return new ResponseEntity<>(new AuthResponse(jwt),HttpStatus.OK);
+		UserDTO userLogged = new UserDTO(userService.findByUsername(userDetails.getUsername()));
+		return new ResponseEntity<>(new AuthResponse(jwt,userLogged),HttpStatus.OK);
 	}
+	
+	@GetMapping("/validateToken")
+	public void validateToken() {}
+	
 
 }
